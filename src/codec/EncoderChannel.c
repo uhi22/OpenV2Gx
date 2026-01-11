@@ -208,7 +208,8 @@ int encodeUnsignedInteger64(bitstream_t* stream, uint64_t n) {
 void _shiftRight7(uint8_t* buf, int len) {
 	const int shift = 7;
     unsigned char tmp = 0x00, tmp2 = 0x00;
-    for (int k = 0; k <= len; k++) {
+    int k;
+    for (k = 0; k <= len; k++) {
         if (k == 0) {
             tmp = buf[k];
             buf[k] >>= shift;
