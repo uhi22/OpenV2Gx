@@ -1539,8 +1539,16 @@ void encodeCableCheckResponse(void) {
     init_dinCableCheckResType(&dinDoc.V2G_Message.Body.CableCheckRes);
     if (getIntParam(0)) { /* command line argument decides whether we report "Ongoing" or "Finished" */
       dinDoc.V2G_Message.Body.CableCheckRes.EVSEProcessing=dinEVSEProcessingType_Ongoing;
+      /* based on alpitronic behavior: Isolationmonitoring active and isolation level invalid */
+      dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEStatusCode = dinDC_EVSEStatusCodeType_EVSE_IsolationMonitoringActive;
+      dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEIsolationStatus_isUsed = 1;
+      dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEIsolationStatus = dinisolationLevelType_Invalid;
     } else {
       dinDoc.V2G_Message.Body.CableCheckRes.EVSEProcessing=dinEVSEProcessingType_Finished;
+      /* based on alpitronic behavior: Isolation status (level) valid  */
+      dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEStatusCode = dinDC_EVSEStatusCodeType_EVSE_Ready;
+      dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEIsolationStatus_isUsed = 1;
+      dinDoc.V2G_Message.Body.CableCheckRes.DC_EVSEStatus.EVSEIsolationStatus = dinisolationLevelType_Valid;
     }
     prepareGlobalStream();
     g_errn = encode_dinExiDocument(&global_stream1, &dinDoc);
