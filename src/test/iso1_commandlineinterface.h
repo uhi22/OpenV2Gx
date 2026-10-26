@@ -516,9 +516,25 @@ void translateDocIso1ToJson(void) {
           translateIso1UnitToJson("EVMaximumPowerLimit.Unit", m.EVMaximumPowerLimit.Unit); 
         }
         
-        //m.BulkChargingComplete_isUsed
-        //m.BulkChargingComplete
+        sprintf(sTmp, "%d", m.BulkChargingComplete_isUsed); addProperty("BulkChargingComplete_isUsed", sTmp);
+        if (m.BulkChargingComplete_isUsed) {
+          sprintf(sTmp, "%d", m.BulkChargingComplete); addProperty("BulkChargingComplete", sTmp);
+        }
         sprintf(sTmp, "%d", m.ChargingComplete); addProperty("ChargingComplete", sTmp);
+
+        sprintf(sTmp, "%d", m.RemainingTimeToFullSoC_isUsed); addProperty("RemainingTimeToFullSoC_isUsed", sTmp);
+        if (m.RemainingTimeToFullSoC_isUsed) {
+          sprintf(sTmp, "%d", m.RemainingTimeToFullSoC.Multiplier); addProperty("RemainingTimeToFullSoC.Multiplier", sTmp);
+          sprintf(sTmp, "%d", m.RemainingTimeToFullSoC.Value); addProperty("RemainingTimeToFullSoC.Value", sTmp);
+          translateIso1UnitToJson("RemainingTimeToFullSoC.Unit", m.RemainingTimeToFullSoC.Unit);
+        }
+
+        sprintf(sTmp, "%d", m.RemainingTimeToBulkSoC_isUsed); addProperty("RemainingTimeToBulkSoC_isUsed", sTmp);
+        if (m.RemainingTimeToBulkSoC_isUsed) {
+          sprintf(sTmp, "%d", m.RemainingTimeToBulkSoC.Multiplier); addProperty("RemainingTimeToBulkSoC.Multiplier", sTmp);
+          sprintf(sTmp, "%d", m.RemainingTimeToBulkSoC.Value); addProperty("RemainingTimeToBulkSoC.Value", sTmp);
+          translateIso1UnitToJson("RemainingTimeToBulkSoC.Unit", m.RemainingTimeToBulkSoC.Unit);
+        }
 
         sprintf(sTmp, "%d", m.EVTargetVoltage.Multiplier); addProperty("EVTargetVoltage.Multiplier", sTmp);
         sprintf(sTmp, "%d", m.EVTargetVoltage.Value); addProperty("EVTargetVoltage.Value", sTmp);
